@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using Microsoft.Extensions.Configuration;
 
 namespace GoodStore
 {
@@ -6,7 +8,13 @@ namespace GoodStore
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
+
+            var config = builder.Build();
+            var connectionString = config.GetConnectionString("DefaultConnection");
+            Console.WriteLine(connectionString);
         }
     }
 }
