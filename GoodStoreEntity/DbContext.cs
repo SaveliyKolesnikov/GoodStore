@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace GoodStoreEntity
 {
-    public class DbContext : Microsoft.EntityFrameworkCore.DbContext
+    public partial class DbContext : Microsoft.EntityFrameworkCore.DbContext
     {
         public DbContext()
         {
@@ -28,8 +30,6 @@ namespace GoodStoreEntity
         {
             modelBuilder.Entity<Consignment>(entity =>
             {
-                entity.HasKey(e => e.ConsigmentId);
-
                 entity.Property(e => e.Date)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
@@ -38,14 +38,12 @@ namespace GoodStoreEntity
                     .WithMany(p => p.Consignments)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Consignme__Produ__29572725");
+                    .HasConstraintName("FK__Consignme__Produ__33D4B598");
             });
 
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.HasKey(e => e.ProductId);
-
-                entity.Property(e => e.ProductId).ValueGeneratedNever();
 
                 entity.Property(e => e.Name)
                     .IsRequired()

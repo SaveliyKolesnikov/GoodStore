@@ -1,10 +1,17 @@
 ﻿using System;
 
-namespace GoodStoreEntity
+namespace GoodStore
 {
     public class Consignment
     {
-        public Consignment(int consignmentId, int productId, int amount, DateTime date)
+
+        public Consignment(int productId, double amount, DateTime date)
+            : this(-1, productId, amount, date)
+        {
+        }
+
+
+        public Consignment(int consignmentId, int productId, double amount, DateTime date)
         {
             ConsignmentId = consignmentId;
             ProductId = productId;
@@ -14,7 +21,7 @@ namespace GoodStoreEntity
 
         public int ConsignmentId { get; }
         public int ProductId { get; set; }
-        public int Amount { get; set; }
+        public double Amount { get; set; }
         public DateTime Date { get; set; }
         public Product Product { get; set; }
     }

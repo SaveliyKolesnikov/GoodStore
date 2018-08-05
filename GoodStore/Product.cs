@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GoodStoreEntity
+namespace GoodStore
 {
     public class Product
     {
@@ -27,5 +27,8 @@ namespace GoodStoreEntity
         public double Amount { get; set; }
 
         public ICollection<Consignment> Consignments { get; set; }
+
+        public override string ToString() =>
+            $"{ProductId}. {Name} -- {Price} -- Amount: {Amount} {Unit}";
     }
 }
