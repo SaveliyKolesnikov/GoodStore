@@ -36,6 +36,12 @@ namespace GoodStore
                 } while (flag);
 
                 var products = productRepository.GetProductsAsync().GetAwaiter().GetResult();
+                foreach (var product in products)
+                {
+                    Console.WriteLine(product);
+                }
+
+                Console.WriteLine(new String('-', 30));
                 do
                 {
                     Console.WriteLine("Input 1 if you want to enter a new consigment, input 0 to exit.");
