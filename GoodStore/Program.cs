@@ -36,24 +36,23 @@ namespace GoodStore
                         productRepository.CreateProductAsync(newProduct).GetAwaiter().GetResult();
                     }
                 } while (flag);
-                
-                //do
-                //{
-                //    Console.WriteLine("Input 1 if you want to enter a new product, input 0 to exit.");
-                //    flag = Convert.ToBoolean(Console.ReadLine());
-                //    if (flag)
-                //    {
-                //        var newProduct = InputNewProduct();
-                //        productRepository.CreateProductAsync(newProduct).GetAwaiter().GetResult();
-                //    }
-                //} while (!flag);
+
+                var products = productRepository.GetProductsAsync().GetAwaiter().GetResult();
+                do
+                {
+                    Console.WriteLine("Input 1 if you want to enter a new consigment, input 0 to exit.");
+                    flag = Convert.ToInt32(Console.ReadLine()) != 0;
+                    if (flag)
+                    {
+                        var newConsignment = InputConsignment(products);
+                        consignmentRepository.CreateConsignmentAsync(newConsignment).GetAwaiter().GetResult();
+                    }
+                } while (!flag);
 
                 Console.WriteLine("Products in the warehouse: ");
 
                 foreach (var product in productRepository.GetProductsAsync().GetAwaiter().GetResult().Where(p => p.Amount > 0))
-                { 
                     Console.WriteLine(product);
-                }
             }
         }
 
@@ -90,8 +89,6 @@ namespace GoodStore
 
             var productId = selectedProduct.ProductId;
             var amount = InputDoubleValue("amount");
-
-            Console.WriteLine("Enter date in this format - yyyy-MM-dd HH:mm:SS, or enter NOW to automatically insert current time");
 
             var supplyTime = InputDate();
 
