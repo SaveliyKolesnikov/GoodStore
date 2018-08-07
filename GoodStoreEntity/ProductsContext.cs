@@ -2,13 +2,13 @@
 
 namespace GoodStoreEntity
 {
-    public partial class DbContext : Microsoft.EntityFrameworkCore.DbContext
+    public class ProductsContext : Microsoft.EntityFrameworkCore.DbContext
     {
-        public DbContext()
+        public ProductsContext()
         {
         }
 
-        public DbContext(DbContextOptions<DbContext> options)
+        public ProductsContext(DbContextOptions<ProductsContext> options)
             : base(options)
         {
         }

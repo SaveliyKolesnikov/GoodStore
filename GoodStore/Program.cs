@@ -23,15 +23,21 @@ namespace GoodStore
             using (var consignmentRepository = new ConsignmentRepository(connection))
             {
 
-                bool flag;
+                var flag = true;
                 do
                 {
                     Console.WriteLine("Input 1 if you want to enter a new product, input 0 to exit.");
-                    flag = Convert.ToInt32(Console.ReadLine()) != 0;
-                    if (flag)
+                    try
                     {
-                        var newProduct = InputNewProduct();
-                        productRepository.CreateProductAsync(newProduct).GetAwaiter().GetResult();
+                        flag = Convert.ToInt32(Console.ReadLine()) != 0;
+                        if (flag)
+                        {
+                            var newProduct = InputNewProduct();
+                            productRepository.CreateProductAsync(newProduct).GetAwaiter().GetResult();
+                        }
+                    }
+                    catch (FormatException)
+                    {
                     }
                 } while (flag);
 
@@ -45,11 +51,17 @@ namespace GoodStore
                 do
                 {
                     Console.WriteLine("Input 1 if you want to enter a new consigment, input 0 to exit.");
-                    flag = Convert.ToInt32(Console.ReadLine()) != 0;
-                    if (flag)
+                    try
                     {
-                        var newConsignment = InputConsignment(products);
-                        consignmentRepository.CreateConsignmentAsync(newConsignment).GetAwaiter().GetResult();
+                        flag = Convert.ToInt32(Console.ReadLine()) != 0;
+                        if (flag)
+                        {
+                            var newConsignment = InputConsignment(products);
+                            consignmentRepository.CreateConsignmentAsync(newConsignment).GetAwaiter().GetResult();
+                        }
+                    }
+                    catch (FormatException)
+                    {
                     }
                 } while (!flag);
 
